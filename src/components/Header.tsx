@@ -1,7 +1,8 @@
 
 export const Header: React.FC = () => {
   return (
-    <nav className="w-100 navbar navbar-expand-lg bg-black border-bottom">
+    <nav
+      className="w-100 navbar navbar-expand-lg bg-black border-bottom border-dark">
       <div className="container-fluid gap-3 container">
         <a className="navbar-brand text-white fs-5 fw-bold" href="/">Lifters Shop</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
