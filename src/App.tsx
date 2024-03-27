@@ -1,10 +1,8 @@
-import { Header } from './components/Header';
 import RoutesApp from './routes';
 
 function App() {
   return (
-    <div className='w-100'>
-      <Header />
+    <div className='w-100 h-100 bg-white'>
       <RoutesApp />
     </div>
   )
