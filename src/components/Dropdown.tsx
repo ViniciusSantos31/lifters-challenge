@@ -83,7 +83,7 @@ const Menu = () => {
                 </div>
                 <div className='d-flex justify-content-between'>
                   <div className='w-100 d-flex align-items-center gap-2'>
-                    <div className="d-flex align-items-center justify-content-center border border-white text-white" style={{ width: 20, height: 20 }}>{item.tamanhos[0]}</div>
+                    <div className="d-flex align-items-center justify-content-center border border-white text-white px-1" style={{ height: 20 }}>{item.tamanhos[0]}</div>
                     <ColorButton
                       size={20}
                       color={{ codigo: item.cores[0].codigo, nome: item.cores[0].nome }}
