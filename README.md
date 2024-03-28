@@ -1,30 +1,29 @@
-# React + TypeScript + Vite
+# Lifters Shop 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The application link is available at Vercel: [Lifters Shop](https://lifters-challenge.vercel.app)
 
-Currently, two official plugins are available:
+## Technologies Used 💻
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project utilizes the following technologies:
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Vite
+- Bootstrap 
+- React Bootstrap
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Versions ⚙️
 
-- Configure the top-level `parserOptions` property like this:
+- React version: 18.2.0
+- Node version: 20.11.1
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Features 🚀
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- List of products
+- Product Details
+- Add item to bag
+- Remove item from bag
+- Filter by category, color, size
+- Shopping cart
+- Checkout page
+- Validation to checkout
