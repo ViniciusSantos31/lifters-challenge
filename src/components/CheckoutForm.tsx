@@ -8,6 +8,9 @@ import { CheckoutType, checkoutSchema } from "../validation/checkout";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner';
+
 export const CheckoutForm: React.FC = () => {
 
   const months =
@@ -15,12 +18,14 @@ export const CheckoutForm: React.FC = () => {
 
   const years = Array.from({ length: 11 }, (_, i) => (new Date().getFullYear() + i).toString());
 
-  const { items } = useShoppingCartStore();
+  const { items, clearItems } = useShoppingCartStore();
 
   const getTotalPrice = () => {
     return items.reduce(
       (acc, item) => acc + Number(item.valor.replace(/[^0-9]/, '') ?? 0), 0);
   }
+
+  const navigate = useNavigate();
 
   const form = useForm<CheckoutType>({
     resolver: yupResolver(checkoutSchema),
@@ -33,14 +38,23 @@ export const CheckoutForm: React.FC = () => {
     }
   });
 
-  const submit = (data: CheckoutType) => {
-    console.log(data);
-  }
-
-  const { handleSubmit, register, formState: { errors } } = form;
+  
+  const { handleSubmit, register, formState: { errors }, reset } = form;
   const registerWithMask = useHookFormMask(register);
-
+  
   const isExpiredError = errors.cardExpMonth?.message || errors.cardExpYear?.message;
+
+  const submit = () => {
+    toast.success('Payment successful', {
+      duration: 3000,
+      position: 'top-center'
+    });
+    reset();
+    clearItems();
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+  }
 
   return (
     <form onSubmit={handleSubmit(submit)}>
@@ -56,7 +70,7 @@ export const CheckoutForm: React.FC = () => {
             <Input
               label="Card number"
               error={errors.cardNumber?.message}
-              {...registerWithMask('cardNumber', '9999 9999 9999 9999', {
+              {...registerWithMask('cardNumber', '9999 9999 9999 999[9]', {
                 clearMaskOnLostFocus: false,
                 placeholder: ''
               })}

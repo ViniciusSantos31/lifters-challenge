@@ -2,7 +2,7 @@ import { InferType, object, string } from 'yup';
 
 export const checkoutSchema = object({
   cardName: string().required('O nome do cartão é obrigatório').min(3, 'O nome do cartão deve conter no mínimo 3 caracteres'),
-  cardNumber: string().required('O número de cartão é obrigatório').min(16, 'O número do cartão deve conter 16 digitos'),
+  cardNumber: string().required('O número de cartão é obrigatório').min(15, 'O número do cartão deve conter 15 digitos'),
   cardExpMonth: string().required('O mês de expiração é obrigatório').test('is-expired', 'O cartão está expirado', (value, ctx) => {
     const currentMonth = new Date().getMonth() + 1;
     const currentYear = new Date().getFullYear();
