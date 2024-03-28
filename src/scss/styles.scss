@@ -1,6 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap/scss/variables";
 
+
 @include media-breakpoint-up(sm) {
   .hero {
     max-width: 29.75rem;
@@ -67,4 +68,14 @@ select.form-control:focus-visible {
 
 select.form-control::placeholder {
   color: #718191;
+}
+
+#dropdown-item:focus {
+  background-color: #010101 !important;
+  color: #ffffff !important;
+}
+
+#dropdown-item:hover {
+  background-color: #010101 !important;
+  color: #ffffff !important;
 }
