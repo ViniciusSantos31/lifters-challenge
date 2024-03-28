@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCategories } from "../services/product";
+import { getCategories } from "../../services/product";
 
 export const FilterCategory: React.FC = () => {
   const { data: filters } = useQuery<string[]>({
-    queryKey: ["filters"],
+    queryKey: ["categories"],
     queryFn: () => getCategories(),
   });
 
@@ -27,10 +27,10 @@ const FilterCategoryItem: React.FC<FilterCategoryItemProps> = ({ filter }) => {
         <input
           className="form-check-input"
           type="checkbox"
-          id="categroy-2"
+          id={`categroy-${filter}`}
           value=""
         />
-        <label className="form-check-label" htmlFor="categroy-2">
+        <label className="form-check-label" htmlFor={`categroy-${filter}`}>
           {filter}
         </label>
       </div>

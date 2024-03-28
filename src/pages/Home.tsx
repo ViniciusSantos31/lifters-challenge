@@ -3,7 +3,9 @@ import { GridProducts } from "../components/GridProducts";
 import { Header } from "../components/Header";
 import { getProducts } from "../services/product";
 import { Product } from "../types/product";
-import { FilterCategory } from "../components/FilterCategory";
+import { FilterCategory } from "../components/filter/Category";
+import { FilterColor } from "../components/filter/Color";
+import { FilterSize } from "../components/filter/Size";
 
 export const Home = () => {
   const { data: products } = useQuery<Product[]>({
@@ -21,7 +23,7 @@ export const Home = () => {
             <span className="hero d-flex w-100 fs-6">
               Revamp your style with the latest designer trends in men's
               clothing or achieve a perfectly curated wardrobe thanks to our
-              line-up of timeless pieces.{" "}
+              line-up of timeless pieces.
             </span>
           </div>
         </div>
@@ -35,16 +37,11 @@ export const Home = () => {
               </div>
               <div className="mt-4">
                 <h5 className="fs-5 fs-6 mb-3">Colors</h5>
-                <div className="w-75 d-flex gap-1 flex-wrap">
-                  {/* {colors.map((color) => (
-                    <button
-                      key={color}
-                      id={`color-${color}`}
-                      className="w-100 rounded-circle bg-danger p-1 border border-black"
-                      style={{ maxWidth: 25, minHeight: 25 }}
-                    />
-                  ))} */}
-                </div>
+                <FilterColor />
+              </div>
+              <div className="mt-4">
+                <h5 className="fs-5 fs-6 mb-3">Sizes</h5>
+                <FilterSize />
               </div>
             </div>
             <div className="col-6 col-md-8 px-0">

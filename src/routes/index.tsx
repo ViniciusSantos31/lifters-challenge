@@ -5,14 +5,14 @@ import { Product } from "../pages/Product";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <Home />,
   },
   {
-    path: "/product",
-    element: <Product />
-  }
+    path: "/product/:slug",
+    element: <Product />,
+  },
 ]);
 
 export default function RoutesApp() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }

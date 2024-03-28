@@ -6,3 +6,19 @@
     max-width: 29.75rem;
   }
 }
+
+.button-size:hover,
+button.selected {
+  background-color: #010101 !important;
+  color: #ffffff !important;
+}
+
+.card:hover .card-title {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.1);
+  transition: transform 0.5s;
+}

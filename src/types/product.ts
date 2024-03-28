@@ -6,6 +6,7 @@ export interface Product {
   cores: Cor[];
   tamanhos: string[];
   fotos: Foto[];
+  slug: string;
 }
 
 export interface Cor {
