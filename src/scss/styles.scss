@@ -7,10 +7,19 @@
   }
 }
 
+#add-to-cart:disabled {
+  background-color: #c4c4c4 !important;
+  cursor: default;
+}
+
 .button-size:hover,
-button.selected {
+button.button-size.selected {
   background-color: #010101 !important;
   color: #ffffff !important;
+}
+
+#colors > button.selected {
+  outline: 2px solid #010101 !important;
 }
 
 .card:hover .card-title {
@@ -21,4 +30,41 @@ button.selected {
 .card:hover .card-img-top {
   transform: scale(1.1);
   transition: transform 0.5s;
+}
+
+input[type="checkbox"] {
+  cursor: pointer
+}
+
+input.form-control, input.form-control:focus-visible, select.form-control, select.form-control:focus-visible {
+  outline: none;
+  border: 1px solid #718191;
+  background-color: #2A3038;
+  border-radius: 0;
+  padding: 0.8rem 1rem;
+  box-shadow: none;
+  color: #ffffff;
+  position: relative;
+}
+
+input.form-control:focus-visible {
+  border: 1px solid #ffffff;
+}
+
+input.form-control:placeholder {
+  color: #718191;
+}
+
+input.form-control.error, select.form-control.error {
+  color: #ff0000 !important;
+  background-color: rgba(237, 64, 64, 0.15) !important;
+  border: 1px solid #ff0000 !important;
+}
+
+select.form-control:focus-visible {
+  border: 1px solid #ffffff;
+}
+
+select.form-control::placeholder {
+  color: #718191;
 }
