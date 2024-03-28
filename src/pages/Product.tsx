@@ -1,11 +1,11 @@
-import { ShoppingBagIcon } from "lucide-react";
-import { Header } from "../components/Header";
-import { FilterSize } from "../components/filter/Size";
-import { Navigate, useParams } from "react-router-dom";
-import { getProductBySlug } from "../services/product";
 import { useQuery } from "@tanstack/react-query";
+import { ShoppingBagIcon } from "lucide-react";
+import { Navigate, useParams } from "react-router-dom";
+import { Header } from "../components/Header";
+import { FilterColor } from "../components/filters/Color";
+import { FilterSize } from "../components/filters/Size";
+import { getProductBySlug } from "../services/product";
 import { Product as IProduct } from "../types/product";
-import { FilterColor } from "../components/filter/Color";
 
 export const Product: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();

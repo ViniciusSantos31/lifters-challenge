@@ -23,7 +23,7 @@ interface FilterCategoryItemProps {
 const FilterCategoryItem: React.FC<FilterCategoryItemProps> = ({ filter }) => {
   return (
     <li className="list-group-item border-0 p-0">
-      <div className="form-check">
+      <div className="form-check pe">
         <input
           className="form-check-input"
           type="checkbox"

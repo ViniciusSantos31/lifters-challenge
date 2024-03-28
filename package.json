@@ -17,7 +17,9 @@
     "lucide-react": "^0.363.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "use-mask-input": "^3.3.7",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",

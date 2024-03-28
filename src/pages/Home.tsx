@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { GridProducts } from "../components/GridProducts";
 import { Header } from "../components/Header";
+import { FilterCategory } from "../components/filters/Category";
+import { FilterColor } from "../components/filters/Color";
+import { FilterSize } from "../components/filters/Size";
 import { getProducts } from "../services/product";
 import { Product } from "../types/product";
-import { FilterCategory } from "../components/filter/Category";
-import { FilterColor } from "../components/filter/Color";
-import { FilterSize } from "../components/filter/Size";
 
 export const Home = () => {
   const { data: products } = useQuery<Product[]>({
@@ -45,7 +45,7 @@ export const Home = () => {
               </div>
             </div>
             <div className="col-6 col-md-8 px-0">
-              <div className="w-100 d-flex align-items-center justify-content-end mb-4 fs-8">
+              <div className="w-100 d-flex align-items-center justify-content-end mb-4 fs-8 text-secondary">
                 Showing {products?.length} products
               </div>
               <GridProducts products={products ?? []} />

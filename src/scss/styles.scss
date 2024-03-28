@@ -22,3 +22,34 @@ button.selected {
   transform: scale(1.1);
   transition: transform 0.5s;
 }
+
+input[type="checkbox"] {
+  cursor: pointer
+}
+
+input.form-control, input.form-control:focus-visible, select.form-control, select.form-control:focus-visible {
+  outline: none;
+  border: 1px solid #718191;
+  background-color: #2A3038;
+  border-radius: 0;
+  padding: 0.8rem 1rem;
+  box-shadow: none;
+  color: #ffffff;
+  position: relative;
+}
+
+input.form-control:focus-visible {
+  border: 1px solid #ffffff;
+}
+
+input.form-control::placeholder {
+  color: #718191;
+}
+
+select.form-control:focus-visible {
+  border: 1px solid #ffffff;
+}
+
+select.form-control::placeholder {
+  color: #718191;
+}
