@@ -1,5 +1,4 @@
-![Lifters Shop](./public/local_mall.svg)
-# Lifters Shop 
+# <img width="30" src="./public/local_mall.svg"> Lifters Shop 
 
 The application link is available at Vercel: [Lifters Shop](https://lifters-challenge.vercel.app)
 
