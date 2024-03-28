@@ -9,6 +9,8 @@ import { getProductBySlug } from "../services/product";
 import { useShoppingCartStore } from "../store";
 import { Cor, Product as IProduct } from "../types/product";
 
+import { toast } from 'sonner';
+
 export const Product: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -33,6 +35,10 @@ export const Product: React.FC = () => {
     if (!productToAdd || items.includes(productToAdd)) return;
 
     addItem(productToAdd as IProduct);
+    toast.success('Product added to cart', {
+      description: `${productToAdd.titulo} was added to your cart`,
+      duration: 3000
+    });
   }
 
   const isAdded = useMemo(() => {

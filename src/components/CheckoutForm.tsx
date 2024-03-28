@@ -1,7 +1,12 @@
-import { withMask } from "use-mask-input";
+import { useHookFormMask } from "use-mask-input";
 import { useShoppingCartStore } from "../store";
 import { Input } from "./Input";
 import { Select } from "./Select";
+
+import { useForm } from "react-hook-form";
+import { CheckoutType, checkoutSchema } from "../validation/checkout";
+
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export const CheckoutForm: React.FC = () => {
 
@@ -17,52 +22,98 @@ export const CheckoutForm: React.FC = () => {
       (acc, item) => acc + Number(item.valor.replace(/[^0-9]/, '') ?? 0), 0);
   }
 
-  return (
-    <div className="w-100 bg-black p-4 d-flex flex-column justify-content-between">
-      <div>
-        <div className="d-flex justify-content-between align-items-center text-white">
-          <h4>Total:</h4>
-          <h4>{`$ ${getTotalPrice()}`}</h4>
-        </div>
-        <div className="w-100 bg-secondary my-3" style={{ height: 1 }} />
+  const form = useForm<CheckoutType>({
+    resolver: yupResolver(checkoutSchema),
+    mode: 'all',
+    defaultValues: {
+      cardCvc: '',
+      cardExpMonth: '',
+      cardExpYear: '',
+      cardName: '',
+    }
+  });
 
-        <div className="d-flex flex-column gap-4">
-          <Input
-            label="Card number"
-            ref={withMask('9999 9999 9999 9999', {
-              clearMaskOnLostFocus: false,
-              placeholder: "",
-            })}
-          />
-          <Input label="Cardholder name" placeholder="-" />
-          <div className="d-flex gap-2">
-            <Select label="Expiry month" options={months} />
-            <Select label="Expiry year" options={years} />
+  const submit = (data: CheckoutType) => {
+    console.log(data);
+  }
+
+  const { handleSubmit, register, formState: { errors } } = form;
+  const registerWithMask = useHookFormMask(register);
+
+  const isExpiredError = errors.cardExpMonth?.message || errors.cardExpYear?.message;
+
+  return (
+    <form onSubmit={handleSubmit(submit)}>
+      <div className="w-100 bg-black p-4 d-flex flex-column justify-content-between">
+        <div>
+          <div className="d-flex justify-content-between align-items-center text-white">
+            <h4>Total:</h4>
+            <h4>{`$ ${getTotalPrice()}`}</h4>
           </div>
-          <Input
-            label="CVV"
-            ref={withMask(['999[9]'], {
-              clearMaskOnLostFocus: false,
-              placeholder: "",
-            })}
-          />
-          <div className="form-check pe d-flex align-items-center justify-content-start gap-2">
-            <input
-              className="form-check-input "
-              style={{ width: 20, height: 20 }}
-              type="checkbox"
-              id={`categroy-${1}`}
-              value=""
+          <div className="w-100 bg-secondary my-3" style={{ height: 1 }} />
+
+          <div className="d-flex flex-column gap-4">
+            <Input
+              label="Card number"
+              error={errors.cardNumber?.message}
+              {...registerWithMask('cardNumber', '9999 9999 9999 9999', {
+                clearMaskOnLostFocus: false,
+                placeholder: ''
+              })}
             />
-            <label className="form-check-label text-white m-0" htmlFor={`categroy-${1}`}>
-              Aceitar todos os termos
-            </label>
+            <Input
+              label="Cardholder name"
+              error={errors.cardName?.message}
+              placeholder="-"
+              {...register('cardName')}
+            />
+            <div className="d-flex flex-column gap-1">
+              <div className="d-flex gap-2">
+                <Select
+                  label="Expiry month"
+                  options={months}
+                  error={!!isExpiredError}
+                  {...register('cardExpMonth')}
+                />
+                <Select
+                  label="Expiry year"
+                  options={years}
+                  error={!!isExpiredError}
+                  {...register('cardExpYear')}
+                />
+              </div>
+              {isExpiredError &&
+                <small className='text-danger'>
+                  {isExpiredError}
+                </small>
+              }
+            </div>
+            <Input
+              label="CVV"
+              error={errors.cardCvc?.message}
+              {...registerWithMask('cardCvc', '999[9]', {
+                clearMaskOnLostFocus: false,
+                placeholder: ''
+              })}
+            />
+            <div className="form-check pe d-flex align-items-center justify-content-start gap-2">
+              <input
+                className="form-check-input "
+                style={{ width: 20, height: 20 }}
+                type="checkbox"
+                id={`categroy-${1}`}
+                value=""
+              />
+              <label className="form-check-label text-white m-0" htmlFor={`categroy-${1}`}>
+                Aceitar todos os termos
+              </label>
+            </div>
           </div>
         </div>
+        <button className="w-100 d-flex gap-2 align-items-center justify-content-center border-0 fw-medium py-3 text-black bg-white mt-3">
+          Checkout
+        </button>
       </div>
-      <button className="w-100 d-flex gap-2 align-items-center justify-content-center border-0 fw-medium py-3 text-black bg-white mt-3">
-        Checkout
-      </button>
-    </div>
+    </form>
   )
 }

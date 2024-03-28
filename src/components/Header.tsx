@@ -1,5 +1,6 @@
 import { ShoppingBagIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { useShoppingCartStore } from '../store';
 
 export const Header: React.FC = () => {
@@ -9,6 +10,11 @@ export const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const goToBag = () => {
+    if (items.length === 0) {
+      toast.info('Your bag is empty', {
+        duration: 3000
+      }); return
+    }
     navigate('/checkout');
   }
 
@@ -17,9 +23,6 @@ export const Header: React.FC = () => {
       className="w-100 navbar navbar-expand-lg bg-black border-bottom border-dark">
       <div className="container-fluid gap-3 container">
         <a className="navbar-brand text-white fs-5 fw-bold" href="/">Lifters Shop</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
             <li className="nav-item">
