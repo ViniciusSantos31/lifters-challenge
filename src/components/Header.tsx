@@ -1,22 +1,6 @@
-import { ShoppingBagIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { useShoppingCartStore } from '../store';
+import { DropdownBag } from './Dropdown';
 
 export const Header: React.FC = () => {
-
-  const { items } = useShoppingCartStore();
-
-  const navigate = useNavigate();
-
-  const goToBag = () => {
-    if (items.length === 0) {
-      toast.info('Your bag is empty', {
-        duration: 3000
-      }); return
-    }
-    navigate('/checkout');
-  }
 
   return (
     <nav
@@ -37,10 +21,11 @@ export const Header: React.FC = () => {
           </ul>
         </div>
         <div className='d-flex align-items-center justify-content-center text-white gap-4'>
-          <button onClick={goToBag} className="text-white border-0 bg-transparent">
+          <DropdownBag />
+          {/* <button onClick={goToBag} className="text-white border-0 bg-transparent">
             <ShoppingBagIcon />
             {items.length > 0 && <span className="badge">{items.length}</span>}
-          </button>
+          </button> */}
           <a href="#" className='link link-light link-underline-dark m-0'>Login</a>
         </div>
       </div>
