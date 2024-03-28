@@ -7,10 +7,19 @@
   }
 }
 
+#add-to-cart:disabled {
+  background-color: #c4c4c4 !important;
+  cursor: default;
+}
+
 .button-size:hover,
-button.selected {
+button.button-size.selected {
   background-color: #010101 !important;
   color: #ffffff !important;
+}
+
+#colors > button.selected {
+  outline: 2px solid #010101 !important;
 }
 
 .card:hover .card-title {

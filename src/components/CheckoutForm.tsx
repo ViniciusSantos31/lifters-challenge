@@ -1,19 +1,28 @@
 import { withMask } from "use-mask-input";
+import { useShoppingCartStore } from "../store";
 import { Input } from "./Input";
 import { Select } from "./Select";
 
 export const CheckoutForm: React.FC = () => {
 
-  const months = Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0'));
+  const months =
+    Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0'));
 
   const years = Array.from({ length: 11 }, (_, i) => (new Date().getFullYear() + i).toString());
+
+  const { items } = useShoppingCartStore();
+
+  const getTotalPrice = () => {
+    return items.reduce(
+      (acc, item) => acc + Number(item.valor.replace(/[^0-9]/, '') ?? 0), 0);
+  }
 
   return (
     <div className="w-100 bg-black p-4 d-flex flex-column justify-content-between">
       <div>
         <div className="d-flex justify-content-between align-items-center text-white">
           <h4>Total:</h4>
-          <h4>$ 100.00</h4>
+          <h4>{`$ ${getTotalPrice()}`}</h4>
         </div>
         <div className="w-100 bg-secondary my-3" style={{ height: 1 }} />
 

@@ -1,9 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSizes } from "../../services/product";
-import { SizeButton } from "../SizeButton";
 import { Product } from "../../types/product";
+import { SizeButton } from "../SizeButton";
 
-export const FilterSize: React.FC<{ product?: Product }> = ({ product }) => {
+interface FilterSizeProps {
+  product?: Product;
+  sizeSelected?: string;
+  setSize?: (size: string) => void;
+}
+
+export const FilterSize: React.FC<FilterSizeProps> = ({ product, setSize, sizeSelected }) => {
   const { data: sizes } = useQuery<string[]>({
     queryKey: ["sizes"],
     queryFn: () => getSizes(product ?? null),
@@ -12,7 +18,8 @@ export const FilterSize: React.FC<{ product?: Product }> = ({ product }) => {
   return (
     <div className="w-75 d-flex gap-1 flex-wrap">
       {sizes?.map((size) => (
-        <SizeButton size={size} />
+        <SizeButton size={size}
+          onClick={() => setSize?.(size)} selected={size === sizeSelected} />
       ))}
     </div>
   );

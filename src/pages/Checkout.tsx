@@ -1,9 +1,14 @@
 import { LockIcon, ShoppingBag } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { CheckoutForm } from '../components/CheckoutForm';
 import { Header } from "../components/Header";
 import { ProductCheckoutItem } from '../components/ProductCheckout';
+import { useShoppingCartStore } from '../store';
 
 export const Checkout: React.FC = () => {
+
+  const navigate = useNavigate();
+  const { items } = useShoppingCartStore();
 
   return (
     <div className="flex-column d-flex h-100">
@@ -14,7 +19,7 @@ export const Checkout: React.FC = () => {
             <ShoppingBag size={40} />
             Your bag
           </h2>
-          <button className="w-auto border-0 fw-medium px-4 text-black bg-body-secondary">
+          <button onClick={() => navigate(-1)} className="w-auto border-0 fw-medium px-4 text-black bg-body-secondary">
             Back
           </button>
         </div>
@@ -22,7 +27,9 @@ export const Checkout: React.FC = () => {
           <div className="row h-100">
             <div className="h-100 col-12 col-md-6 col-lg-8 px-0 d-flex flex-column justify-content-between mb-md-0 pe-0 pe-md-4">
               <ul className='list-group h-50'>
-                <ProductCheckoutItem />
+                {items.map(item => (
+                  <ProductCheckoutItem item={item} />
+                ))}
               </ul>
               <div>
                 <h4 className='d-flex align-items-center gap-2 fs-5 fw-bold mb-0'>

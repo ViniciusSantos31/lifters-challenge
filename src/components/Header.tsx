@@ -1,5 +1,17 @@
+import { ShoppingBagIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useShoppingCartStore } from '../store';
 
 export const Header: React.FC = () => {
+
+  const { items } = useShoppingCartStore();
+
+  const navigate = useNavigate();
+
+  const goToBag = () => {
+    navigate('/checkout');
+  }
+
   return (
     <nav
       className="w-100 navbar navbar-expand-lg bg-black border-bottom border-dark">
@@ -19,11 +31,14 @@ export const Header: React.FC = () => {
             <li className="nav-item">
               <a className="nav-link disabled text-white" aria-disabled="true">About</a>
             </li>
-            {/* <form className="d-flex" role="search">
-              <button className="btn btn-outline-success" type="submit">Search</button>
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            </form> */}
           </ul>
+        </div>
+        <div className='d-flex align-items-center justify-content-center text-white gap-4'>
+          <button onClick={goToBag} className="text-white border-0 bg-transparent">
+            <ShoppingBagIcon />
+            {items.length > 0 && <span className="badge">{items.length}</span>}
+          </button>
+          <a href="#" className='link link-light link-underline-dark m-0'>Login</a>
         </div>
       </div>
     </nav>

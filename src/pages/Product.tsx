@@ -1,19 +1,52 @@
 import { useQuery } from "@tanstack/react-query";
 import { ShoppingBagIcon } from "lucide-react";
-import { Navigate, useParams } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { FilterColor } from "../components/filters/Color";
 import { FilterSize } from "../components/filters/Size";
 import { getProductBySlug } from "../services/product";
-import { Product as IProduct } from "../types/product";
+import { useShoppingCartStore } from "../store";
+import { Cor, Product as IProduct } from "../types/product";
 
 export const Product: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
+  const { addItem, items } = useShoppingCartStore();
+
+  const [colorSelected, setColorSelected] = useState<Cor>();
+  const [sizeSelected, setSizeSelected] = useState<string>();
 
   const { data: product, isLoading } = useQuery<IProduct>({
     queryKey: ["product", slug],
     queryFn: () => getProductBySlug(slug),
   });
+
+  const handleAddItem = () => {
+
+    const productToAdd = {
+      ...product,
+      cores: colorSelected ? [colorSelected] : [],
+      tamanhos: sizeSelected ? [sizeSelected] : [],
+    } as IProduct;
+
+    if (!productToAdd || items.includes(productToAdd)) return;
+
+    addItem(productToAdd as IProduct);
+  }
+
+  const isAdded = useMemo(() => {
+    return !!items.find(item => item.slug === product?.slug);
+  }, [items, product]);
+
+  const isValid = useMemo(() => {
+    if (!product) return false;
+
+    if (product.cores.length > 0 && !colorSelected) return false;
+    if (product.tamanhos.length > 0 && !sizeSelected) return false;
+
+    return true;
+  }, [colorSelected, product, sizeSelected])
 
   if (!product && !isLoading) return <Navigate to="/" />;
 
@@ -43,20 +76,27 @@ export const Product: React.FC = () => {
                     <span className="fw-medium">{product?.descricao}</span>
                     <div className="mb-4">
                       <h5 className="fs-5 fs-6 mt-4 mb-2">Colors</h5>
-                      <FilterColor product={product} size={50} />
+                      <FilterColor
+                        product={product}
+                        size={50}
+                        setColor={setColorSelected} />
                     </div>
                     <div>
                       <h5 className="fs-5 fs-6 mb-2">Size</h5>
-                      <FilterSize product={product} />
+                      <FilterSize
+                        product={product}
+                        sizeSelected={sizeSelected}
+                        setSize={setSizeSelected}
+                      />
                     </div>
                   </div>
                 </div>
                 <div className="w-100 d-flex flex-row gap-2 mb-4 mb-lg-0">
-                  <button className="w-100 d-flex gap-2 align-items-center justify-content-center border-0 fw-medium py-2 text-white bg-black">
+                  <button id="add-to-cart" disabled={isAdded || !isValid} onClick={handleAddItem} className="w-100 d-flex gap-2 align-items-center justify-content-center border-0 fw-medium py-2 text-white bg-black">
                     <ShoppingBagIcon size={18} />
-                    Add to bag
+                    {isAdded ?  "Added" : "Add to bag"}
                   </button>
-                  <button className="w-25 border-0 fw-medium py-2 text-black bg-body-secondary">
+                  <button onClick={() => navigate(-1)} className="w-25 border-0 fw-medium py-2 text-black bg-body-secondary">
                     Back
                   </button>
                 </div>
